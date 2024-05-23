@@ -1,0 +1,395 @@
+// require("dotenv").config();
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const jwt = require("jsonwebtoken");
+// const request = require("request");
+// const bodyParser = require("body-parser");
+// const cors = require("cors");
+// const Schedule = require("./models/Schedule");
+// const Task = require("./models/Task");
+// const { KakaoUser, AppleUser, NaverUser } = require("./models/UserModels");
+// const moment = require("moment-timezone");
+// const TaskToSchedule = require("./models/TaskToSchedule");
+// const SelectedTask = require("./models/SelectedTask");
+
+// const app = express();
+// const port = process.env.PORT || 8080;
+
+// // Middleware
+// app.use(cors());
+// app.use(bodyParser.json());
+f
+// const KAKAO_TOKEN_API_URL = "https://kapi.kakao.com/v2/user/me";
+// const CLIENT_ID = process.env.KAKAO_CLIENT_ID; // 카카오 앱의 REST API 키
+// const REDIRECT_URI = process.env.REDIRECT_URI;
+
+// mongoose
+//   .connect(process.env.MONGO_URL, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => console.log("MongoDB Connected"))
+//   .catch((err) => console.log(err));
+
+// // API to add a schedule
+// app.post("/auth/kakao", async (req, res) => {
+//   const accessToken = req.body.accessToken;
+
+//   request(
+//     {
+//       method: "GET",
+//       url: KAKAO_TOKEN_API_URL,
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     },
+//     async (error, response, body) => {
+//       if (error || response.statusCode !== 200) {
+//         return res.status(500).send("Failed to request user info");
+//       }
+
+//       const userInfo = JSON.parse(body);
+//       const {
+//         id: kakaoId,
+//         properties: { nickname },
+//         kakao_account: { email },
+//       } = userInfo;
+
+//       try {
+//         let user = await KakaoUser.findOne({ email });
+
+//         if (!user) {
+//           // 새로운 사용자 생성
+//           user = new KakaoUser({
+//             kakaoId,
+//             nickname,
+//             email,
+//           });
+//           await user.save();
+//         } else {
+//           // 기존 사용자 정보 업데이트 (예: 닉네임이 변경되었을 경우)
+//           user.nickname = nickname;
+//           await user.save();
+//         }
+
+//         // JWT 생성
+//         const token = jwt.sign(
+//           {
+//             userId: user._id,
+//             email: user.email,
+//             nickname: user.nickname,
+//           },
+//           process.env.JWT_SECRET,
+//           { expiresIn: "2h" }
+//         );
+
+//         res.send({
+//           token,
+//           userInfo: { email: user.email, nickname: user.nickname },
+//         });
+//       } catch (err) {
+//         res.status(500).send(err.message);
+//       }
+//     }
+//   );
+// });
+
+// app.post("/schedules", async (req, res) => {
+//   try {
+//     const schedule = new Schedule(req.body);
+//     await schedule.save();
+//     const updatedSchedule = {
+//       ...schedule.toObject(), // Mongoose 객체를 일반 JS 객체로 변환
+//       startTime: moment(schedule.startTime).tz("Asia/Seoul").format(),
+//       endTime: moment(schedule.endTime).tz("Asia/Seoul").format(),
+//     };
+//     res.status(201).send(updatedSchedule);
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// });
+
+// // API to add a task
+// app.post("/tasks", async (req, res) => {
+//   try {
+//     const task = new Task(req.body);
+//     await task.save();
+//     const updatedTask = {
+//       ...task.toObject(), // Mongoose 객체를 일반 JS 객체로 변환
+//       dueDate: moment(task.dueDate).tz("Asia/Seoul").format(),
+//     };
+//     res.status(201).send(updatedTask);
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// });
+
+// app.post("/taskstoschdules", async (req, res) => {
+//   try {
+//     const taskToSchedule = new TaskToSchedule(req.body);
+//     await taskToSchedule.save();
+//     const updatedTaskToSchedule = {
+//       ...taskToSchedule.toObject(), // Mongoose 객체를 일반 JS 객체로 변환
+//       startTime: moment(taskToSchedule.startTime).tz("Asia/Seoul").format(),
+//       endTime: moment(taskToSchedule.endTime).tz("Asia/Seoul").format(),
+//       targetTime: moment(taskToSchedule.targetTime).tz("Asia/Seoul").format(),
+//     };
+//     res.status(201).send(updatedTaskToSchedule);
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// });
+
+// // API to delete a schedule by _id
+// app.delete("/schedules/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const schedule = await Schedule.findByIdAndDelete(id);
+
+//     if (!schedule) {
+//       return res.status(404).send({ message: "Schedule not found" });
+//     }
+
+//     res
+//       .status(200)
+//       .send({ message: "Schedule deleted successfully", schedule });
+//   } catch (error) {
+//     res.status(500).send(error.message);
+//   }
+// });
+
+// // API to delete a task by _id
+// app.delete("/tasks/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const task = await Task.findByIdAndDelete(id);
+
+//     if (!task) {
+//       return res.status(404).send({ message: "Task not found" });
+//     }
+
+//     res.status(200).send({ message: "Task deleted successfully", task });
+//   } catch (error) {
+//     res.status(500).send(error.message);
+//   }
+// });
+
+// app.delete("/taskstoschdules/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const tasksToSchedules = await TaskToSchedule.findByIdAndDelete(id);
+
+//     if (!tasksToSchedules) {
+//       return res.status(404).send({ message: "Schedule not found" });
+//     }
+
+//     res
+//       .status(200)
+//       .send({ message: "Schedule deleted successfully", tasksToSchedules });
+//   } catch (error) {
+//     res.status(500).send(error.message);
+//   }
+// });
+
+// // API to get schedules by userId
+// app.get("/schedules/:userId", async (req, res) => {
+//   try {
+//     const userId = mongoose.Types.ObjectId(req.params.userId);
+//     let schedules = await Schedule.find({ userId: userId });
+
+//     // 한국 시간대로 변환하여 새로운 객체 생성
+//     const updatedSchedules = schedules.map((schedule) => {
+//       const updatedSchedule = {
+//         ...schedule.toObject(), // Mongoose 객체를 일반 JS 객체로 변환
+//         startTime: moment(schedule.startTime).tz("Asia/Seoul").format(),
+//         endTime: moment(schedule.endTime).tz("Asia/Seoul").format(),
+//       };
+//       return updatedSchedule;
+//     });
+
+//     res.status(200).send(updatedSchedules);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+// // API to get tasks by userId
+// app.get("/tasks/:userId", async (req, res) => {
+//   try {
+//     const userId = mongoose.Types.ObjectId(req.params.userId);
+//     let tasks = await Task.find({ userId: userId });
+
+//     const updateTasks = tasks.map((task) => {
+//       const updateTask = {
+//         ...task.toObject(), // Mongoose 객체를 일반 JS 객체로 변환
+//         dueDate: moment(task.dueDate).tz("Asia/Seoul").format(),
+//       };
+//       return updateTask;
+//     });
+
+//     res.status(200).send(updateTasks);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+// app.get("/taskstoschdules/:userId", async (req, res) => {
+//   try {
+//     const userId = mongoose.Types.ObjectId(req.params.userId);
+//     let taskToSchedule = await TaskToSchedule.find({ userId: userId });
+
+//     const updatedTasksToSchedules = taskToSchedule.map((taskToSchedule) => {
+//       const updatedTaskToSchedule = {
+//         ...taskToSchedule.toObject(), // Mongoose 객체를 일반 JS 객체로 변환
+//         startTime: moment(taskToSchedule.startTime).tz("Asia/Seoul").format(),
+//         endTime: moment(taskToSchedule.endTime).tz("Asia/Seoul").format(),
+//         targetTime: moment(taskToSchedule.endTime).tz("Asia/Seoul").format(),
+//       };
+//       return updatedTaskToSchedule;
+//     });
+
+//     res.status(200).send(updatedTasksToSchedules);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+// // API to get selected tasks by userId
+// app.get("/selectedTasks/:userId", async (req, res) => {
+//   try {
+//     const userId = mongoose.Types.ObjectId(req.params.userId);
+//     let selectedTasks = await SelectedTask.find({ userId });
+
+//     const updatedSelectedTasks = selectedTasks.map((task) => {
+//       const updatedSelectedTask = {
+//         ...task.toObject(), // Mongoose 객체를 일반 JS 객체로 변환
+//         startTime: moment(task.startTime).tz("Asia/Seoul").format(),
+//         endTime: moment(task.endTime).tz("Asia/Seoul").format(),
+//         targetTime: moment(task.endTime).tz("Asia/Seoul").format(),
+//       };
+//       return updatedSelectedTask;
+//     });
+
+//     res.status(200).send(updatedSelectedTasks);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+// // API to delete a selected task by _id
+// app.delete("/selectedTasks/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const selectedTask = await SelectedTask.findByIdAndDelete(id);
+
+//     if (!selectedTask) {
+//       return res.status(404).send({ message: "Selected Task not found" });
+//     }
+
+//     res
+//       .status(200)
+//       .send({ message: "Selected Task deleted successfully", selectedTask });
+//   } catch (error) {
+//     res.status(500).send(error.message);
+//   }
+// });
+
+// app.post("/selectedTasks", async (req, res) => {
+//   try {
+//     const { selectedDate, tasks } = req.body;
+//     console.log("selectedDate", selectedDate);
+//     console.log("tasks", tasks);
+//     const dateOfInterest = moment(selectedDate).startOf("day").toDate();
+//     const nextDay = moment(selectedDate).add(1, "day").startOf("day").toDate();
+
+//     // 해당 날짜에 있는 모든 SelectedTasks를 찾습니다.
+//     const existingTasks = await SelectedTask.find({
+//       selectedDate: {
+//         $gte: dateOfInterest,
+//         $lt: nextDay,
+//       },
+//     });
+
+//     // 새로운 작업의 _id 목록을 생성합니다.
+//     const newTaskIds = tasks.map((task) => task.taskId.toString());
+//     const existingTaskIds = existingTasks.map((task) => task.taskId.toString());
+//     console.log("existingTaskIds", existingTaskIds);
+//     // 새 작업 중 기존에 없는 작업을 추가합니다.
+//     const tasksToAdd = tasks.filter(
+//       (task) => !existingTaskIds.includes(task.taskId.toString())
+//     );
+//     console.log("tasksToAdd", tasksToAdd);
+//     // 기존 작업 중 새 작업에 없는 작업을 삭제합니다.
+//     const tasksToDelete = existingTasks.filter(
+//       (task) => !newTaskIds.includes(task.taskId.toString())
+//     );
+//     const taskIdsToDelete = tasksToDelete.map((task) => task._id);
+
+//     // 삭제 실행
+//     await SelectedTask.deleteMany({
+//       taskId: { $in: tasksToDelete.map((task) => task.taskId) },
+//     });
+
+//     await mongoose.model("TaskToSchedule").deleteMany({
+//       taskId: { $in: taskIdsToDelete },
+//     });
+
+//     // 삭제된 작업의 정보 저장
+//     console.log("deletedTasks", tasksToDelete);
+//     // 추가 실행
+//     const addedTasks = await SelectedTask.insertMany(tasksToAdd);
+//     console.log("addedTasks", addedTasks);
+
+//     const allTasks = await SelectedTask.find();
+//     console.log("allTasks", allTasks);
+//     // 최종 데이터를 읽어 다시 전송
+
+//     res.status(201).send({
+//       allTasks: allTasks.map((task) => ({
+//         ...task.toObject(),
+//         dueDate: moment(task.dueDate).tz("Asia/Seoul").format(),
+//         selectedDate: moment(task.selectedDate).tz("Asia/Seoul").format(),
+//       })),
+//       deletedTasks: tasksToDelete.map((task) => ({
+//         ...task.toObject(), // 직접 객체 데이터 접근
+//         dueDate: moment(task.dueDate).tz("Asia/Seoul").format(),
+//         selectedDate: moment(task.selectedDate).tz("Asia/Seoul").format(),
+//       })),
+//     });
+//   } catch (error) {
+//     console.error("Error processing request:", error);
+//     res.status(400).send(error);
+//   }
+// });
+
+// app.patch("/selectedTasks/toggle/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const selectedTask = await SelectedTask.findById(id);
+
+//     if (!selectedTask) {
+//       return res.status(404).send({ message: "Selected Task not found" });
+//     }
+
+//     // toSchedule 속성 토글
+//     selectedTask.toSchedule = !selectedTask.toSchedule;
+//     await selectedTask.save();
+
+//     const updatedTask = {
+//       ...selectedTask.toObject(),
+//       dueDate: moment(selectedTask.dueDate).tz("Asia/Seoul").format(),
+//       selectedDate: moment(selectedTask.selectedDate).tz("Asia/Seoul").format(),
+//       toSchedule: selectedTask.toSchedule,
+//     };
+
+//     res.status(200).send(updatedTask);
+//   } catch (error) {
+//     console.error("Error toggling toSchedule:", error);
+//     res.status(500).send(error);
+//   }
+// });
+
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
+
