@@ -21,7 +21,6 @@ import 'moment/locale/en-gb';
 import {useDragDrop} from '../../../state/DragDropContext'; // 드래그 앤 드롭 컨텍스트 가져오기
 import styles from './ScheduleListStyles';
 import {
-  LongPressGestureHandler,
   PanGestureHandler,
   State,
   GestureHandlerRootView,
@@ -116,12 +115,42 @@ const ScheduleListComponent = forwardRef<
 
   const createHourRows = () => {
     let hours = [];
+    let currentDay = moment(dateString).startOf('day');
+    let nextDay = currentDay.clone().add(1, 'day');
+
     for (let hour = startHourOffset; hour <= endHourOffset; hour++) {
-      const timeString = getTimeFromOffset(hour).format('HH 시'); // "01 시", "13 시" 형식으로 변환
+      const time = getTimeFromOffset(hour);
+      const timeString = time.format('HH 시'); // "01 시", "13 시" 형식으로 변환
+
+      // 시간 열 생성
+      const isMidnight = hour === 24;
+
       hours.push(
         <View key={hour} style={styles.hourRow}>
-          <Text style={styles.hourText}>{timeString}</Text>
-          <View style={styles.line} />
+          <Text
+            style={
+              isMidnight
+                ? [
+                    styles.hourTextBold,
+                    {
+                      color: 'black',
+                    },
+                  ]
+                : styles.hourText
+            }>
+            {timeString}
+          </Text>
+          <View
+            style={
+              isMidnight
+                ? [
+                    styles.line,
+                    {
+                      borderBottomColor: 'black',
+                    },
+                  ]
+                : styles.line
+            }></View>
         </View>,
       );
     }
@@ -276,11 +305,21 @@ const ScheduleListComponent = forwardRef<
             </>
           );
         })}
+
         <View
           style={[
-            styles.currentTimeLine,
+            styles.currentTimeLineContainer,
             {top: currentTimeLineOffset() + 25},
-          ]}></View>
+          ]}>
+          <View
+            style={[styles.currentTimeLine, {borderBottomColor: theme.fourth}]}
+          />
+          <View
+            style={[
+              styles.currentTimeCircle,
+              {backgroundColor: theme.fourth},
+            ]}></View>
+        </View>
       </ScrollView>
       {dragging && draggedItem && draggedItem.toSchedule === undefined && (
         <Animated.View

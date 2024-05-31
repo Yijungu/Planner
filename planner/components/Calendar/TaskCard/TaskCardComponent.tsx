@@ -67,7 +67,6 @@ const TaskCardComponent = forwardRef(
     const [optionModalVisible, setOptionModalVisible] = useState(false);
 
     useEffect(() => {
-      console.log(1111);
       if (filteredTasks.length > 0) {
         const updatedItems = filteredTasks.filter(t => t.done === true);
         setClickedItems(updatedItems);
@@ -137,7 +136,6 @@ const TaskCardComponent = forwardRef(
         // 최종 목록 생성: nonClickedTasks + clickedTasks
 
         setFilteredTasks(tasksForDate);
-        console.log(tasksForDate);
         const matchedTasks = tasks.filter(task =>
           tasksForDate.some(t => t.taskId === task._id && t.done === false),
         );
@@ -466,20 +464,22 @@ const TaskCardComponent = forwardRef(
                     <View style={styles.modalContainer}>
                       <Text style={styles.modalTitle}>선택하세요</Text>
                       <View style={styles.modalButtonContainer}>
-                        <Button
-                          title="되돌리기"
+                        <TouchableOpacity
+                          style={styles.modalButton}
                           onPress={() => {
                             selectedTasksDoneRecall(currentTask);
                             setOptionModalVisible(false);
-                          }}
-                        />
-                        <Button
-                          title="완료"
+                          }}>
+                          <Text style={styles.modalButtonText}>되돌리기</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.modalButton}
                           onPress={() => {
                             selectedTasksFinish(currentTask);
                             setOptionModalVisible(false);
-                          }}
-                        />
+                          }}>
+                          <Text style={styles.modalButtonText}>완료</Text>
+                        </TouchableOpacity>
                       </View>
                     </View>
                   </View>
@@ -662,23 +662,44 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContainer: {
-    width: 300,
+    width: 320,
     padding: 20,
     backgroundColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
   modalTitle: {
-    fontSize: 20,
-    marginBottom: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#333',
   },
   modalButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     width: '100%',
+  },
+  modalButton: {
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginHorizontal: 10,
+    elevation: 2,
+  },
+  modalButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

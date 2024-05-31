@@ -13,6 +13,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		21860969E260329CAB80467A /* libPods-planner-plannerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 898B10A6C4FC3D0CD76D596D /* libPods-planner-plannerTests.a */; };
 		3AA46F8ED789C4444F95CFE2 /* libPods-planner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEACF3BA755010C5731C614 /* libPods-planner.a */; };
+		540E898A098A4B02B0593B05 /* NanumGothicExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7B662F068CE4334A34FC3B1 /* NanumGothicExtraBold.ttf */; };
+		6A1E8DAC7A584D80909B31A5 /* NanumGothicBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 783198B7F095407E81AD23C4 /* NanumGothicBold.ttf */; };
+		76293A82B3964984AFE6AD00 /* NanumGothicRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39915F0FF0514D53B9152FD7 /* NanumGothicRegular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		EEA1741A2BDE8DBF0015E1B6 /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA174192BDE8DBF0015E1B6 /* SwiftBridge.swift */; };
 /* End PBXBuildFile section */
@@ -39,10 +42,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = planner/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = planner/main.m; sourceTree = "<group>"; };
 		2CBC5FE59C67D78DA49D1D63 /* Pods-planner-plannerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planner-plannerTests.release.xcconfig"; path = "Target Support Files/Pods-planner-plannerTests/Pods-planner-plannerTests.release.xcconfig"; sourceTree = "<group>"; };
+		39915F0FF0514D53B9152FD7 /* NanumGothicRegular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumGothicRegular.ttf; path = ../assets/fonts/NanumGothicRegular.ttf; sourceTree = "<group>"; };
 		5FEACF3BA755010C5731C614 /* libPods-planner.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-planner.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		783198B7F095407E81AD23C4 /* NanumGothicBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumGothicBold.ttf; path = ../assets/fonts/NanumGothicBold.ttf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = planner/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		898B10A6C4FC3D0CD76D596D /* libPods-planner-plannerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-planner-plannerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE39E3AADD4229BD0F243905 /* Pods-planner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planner.debug.xcconfig"; path = "Target Support Files/Pods-planner/Pods-planner.debug.xcconfig"; sourceTree = "<group>"; };
+		E7B662F068CE4334A34FC3B1 /* NanumGothicExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = NanumGothicExtraBold.ttf; path = ../assets/fonts/NanumGothicExtraBold.ttf; sourceTree = "<group>"; };
 		EC2EACD9FBFC7B32EED9F24E /* Pods-planner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-planner.release.xcconfig"; path = "Target Support Files/Pods-planner/Pods-planner.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EEA174182BDE8DBF0015E1B6 /* planner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "planner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -99,6 +105,17 @@
 			name = planner;
 			sourceTree = "<group>";
 		};
+		26E16FE17ABF46AA980C604C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				783198B7F095407E81AD23C4 /* NanumGothicBold.ttf */,
+				E7B662F068CE4334A34FC3B1 /* NanumGothicExtraBold.ttf */,
+				39915F0FF0514D53B9152FD7 /* NanumGothicRegular.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +144,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				EEA174182BDE8DBF0015E1B6 /* planner-Bridging-Header.h */,
+				26E16FE17ABF46AA980C604C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -248,6 +266,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				6A1E8DAC7A584D80909B31A5 /* NanumGothicBold.ttf in Resources */,
+				540E898A098A4B02B0593B05 /* NanumGothicExtraBold.ttf in Resources */,
+				76293A82B3964984AFE6AD00 /* NanumGothicRegular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

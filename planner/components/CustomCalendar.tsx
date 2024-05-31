@@ -10,16 +10,23 @@ import {
 import moment from 'moment';
 import DayComponent from './DayComponent/DayComponent2';
 import DayComponentSelected from './DayComponent/DayComponentSelected'; // 새로운 컴포넌트 임포트
+import DayDetailComponent from './DayComponent/DayDetailComponent'; // 추가된 부분
 import {useSchedules} from '../state/ScheduleContext';
 import CustomSwitch from './Switch';
 
 const screenWidth = Dimensions.get('window').width;
 const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-const CustomCalendar = ({schedules, tasks, openModal}) => {
+const CustomCalendar = ({
+  schedules,
+  tasks,
+  openModal,
+  useSelectedComponent,
+  setUseSelectedComponent,
+  setSelectedDateDetail,
+}) => {
   const {selectedTasks} = useSchedules();
   const [currentMonth, setCurrentMonth] = useState(moment());
-  const [useSelectedComponent, setUseSelectedComponent] = useState(false); // 스위치 상태 관리
   const scrollViewRef = useRef(null);
 
   // 초기 렌더링 후 스크롤 위치를 중앙으로 설정
@@ -93,7 +100,9 @@ const CustomCalendar = ({schedules, tasks, openModal}) => {
               dayTasks={useSelectedComponent ? daySelectedTasks : dayTasks}
               isCurrentMonth={isCurrentMonth}
               isToday={isToday}
-              openModal={openModal}
+              openModal={
+                useSelectedComponent ? setSelectedDateDetail : openModal
+              }
             />
           );
         })}
@@ -124,7 +133,6 @@ const CustomCalendar = ({schedules, tasks, openModal}) => {
 };
 
 const styles = StyleSheet.create({
-  // 스타일 정의
   container: {
     flex: 1,
     justifyContent: 'center',

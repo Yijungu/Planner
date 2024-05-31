@@ -24,6 +24,7 @@
     "moment-timezone": "^0.5.45",
     "mongoose": "^5.13.22",
     "morgan": "^1.10.0",
+    "openai": "^4.47.1",
     "request": "^2.88.2"
   }
 }

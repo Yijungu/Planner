@@ -3,16 +3,19 @@ import {
   View,
   Text,
   TextInput,
-  Button,
+  TouchableOpacity,
   StyleSheet,
   Modal,
   Alert,
+  ScrollView,
 } from 'react-native';
 import {useUser} from '../../state/UserContext';
-import axios from 'axios'; // Axios를 사용하여 서버에 요청을 보냅니다.
+import {useColor} from '../../state/ColorContext';
+import api from '../../utils/api';
 
 const UserCategoryEditor = ({visible, onClose}) => {
   const {user, setUser} = useUser();
+  const {theme} = useColor();
   const [categories, setCategories] = useState(user.category);
 
   const handleChange = (key, value) => {
@@ -22,13 +25,10 @@ const UserCategoryEditor = ({visible, onClose}) => {
   const handleSave = async () => {
     try {
       // 서버에 변경 사항을 저장하는 API 호출
-      const response = await axios.post(
-        'http://localhost:8080/user/update-category',
-        {
-          userId: user.id,
-          categories,
-        },
-      );
+      const response = await api.post('/user/update-category', {
+        userId: user.id,
+        categories,
+      });
 
       if (response.status === 200) {
         setUser(prevUser => ({...prevUser, category: categories}));
@@ -48,28 +48,53 @@ const UserCategoryEditor = ({visible, onClose}) => {
       transparent={true}
       visible={visible}
       onRequestClose={onClose}>
-      <View style={styles.modalView}>
-        <Text style={styles.title}>Edit Categories</Text>
-        {Object.keys(categories).map(key => (
-          <View key={key} style={styles.inputContainer}>
-            <Text style={styles.label}>Category {key}:</Text>
-            <TextInput
-              style={styles.input}
-              value={categories[key]}
-              onChangeText={value => handleChange(key, value)}
-            />
+      <View style={styles.modalOverlay}>
+        <View style={styles.modalView}>
+          <Text style={styles.title}>Edit Categories</Text>
+          <ScrollView style={styles.scrollContainer}>
+            {Object.keys(categories).map(key => (
+              <View key={key} style={styles.inputContainer}>
+                <View style={styles.categoryTextContainer}>
+                  <Text style={styles.label}>Category </Text>
+                  <View
+                    style={[
+                      styles.colorCircle,
+                      {backgroundColor: theme.complementary[key]},
+                    ]}
+                  />
+                </View>
+                <TextInput
+                  style={styles.input}
+                  value={categories[key]}
+                  onChangeText={value => handleChange(key, value)}
+                />
+              </View>
+            ))}
+          </ScrollView>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+              <Text style={styles.buttonText}>Save</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <Text style={styles.buttonText}>Close</Text>
+            </TouchableOpacity>
           </View>
-        ))}
-        <Button title="Save" onPress={handleSave} />
-        <Button title="Close" onPress={onClose} color="red" />
+        </View>
       </View>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
   modalView: {
-    margin: 20,
+    width: '80%',
+    maxHeight: '80%',
     padding: 20,
     backgroundColor: 'white',
     borderRadius: 10,
@@ -80,22 +105,64 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  scrollContainer: {
+    marginBottom: 20,
   },
   inputContainer: {
-    marginBottom: 10,
+    marginBottom: 15,
   },
   label: {
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 5,
+    color: '#333',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    borderColor: '#ddd',
+    borderRadius: 8,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#f9f9f9',
+    fontSize: 16,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  saveButton: {
+    flex: 1,
+    backgroundColor: '#4CAF50',
+    borderRadius: 8,
+    padding: 15,
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  closeButton: {
+    flex: 1,
+    backgroundColor: '#f44336',
+    borderRadius: 8,
+    padding: 15,
+    alignItems: 'center',
+  },
+  colorCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  categoryTextContainer: {
+    flexDirection: 'row',
+    // justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

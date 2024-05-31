@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   container: {
-    // marginTop: 12,
     marginBottom: 20,
     marginRight: 10,
     borderBottomRightRadius: 15,
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 9999,
   },
-
   draggingEvent: {
     position: 'absolute',
     width: 95,
@@ -112,21 +110,37 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  currentTimeLine: {
+  currentTimeCircle: {
     position: 'absolute',
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderLeftWidth: 0, // 왼쪽 변 없음
-    borderRightWidth: 10, // 삼각형의 높이
-    borderTopWidth: 5, // 삼각형의 밑변의 절반
-    borderBottomWidth: 5, // 삼각형의 밑변의 절반
-    borderLeftColor: 'transparent', // 왼쪽 투명
-    borderTopColor: 'transparent', // 상단 투명
-    borderBottomColor: 'transparent', // 하단 투명
-    borderRightColor: '#895737', // 오른쪽 색상
-    transform: [{rotate: '-180deg'}], // 90도 회전
+    // left: 30,
+    width: 10,
+    height: 10,
+    borderRadius: 30,
+  },
+  currentTimeLineContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    marginRight: 5,
+    marginLeft: 55,
+    flexDirection: 'row',
+    alignItems: 'center',
+    // zIndex: 10000,
+  },
+  currentTimeLine: {
+    height: 3,
+    flex: 1,
+    borderBottomWidth: 2,
+  },
+  hourTextBold: {
+    width: 50, // Adjust the width as needed
+    textAlign: 'right',
+    marginRight: 10,
+    fontWeight: 'bold',
+  },
+  boldTextBox: {
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
   },
 });
 

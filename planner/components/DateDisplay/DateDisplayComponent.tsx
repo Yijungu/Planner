@@ -1,13 +1,13 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
-  Text,
   ScrollView,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import moment, {months} from 'moment';
+import moment from 'moment';
+import CustomText from '../../state/CustomText';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -77,20 +77,20 @@ const DateDisplayComponent = ({onDateSelect}) => {
                   isSelected && styles.selectedContainer,
                 ]}
                 onPress={() => handleSelectDate(day.key)}>
-                <Text
+                <CustomText
                   style={[
                     styles.dayText,
                     isSelected && styles.selectedDayText,
                   ]}>
                   {day.day}
-                </Text>
-                <Text
+                </CustomText>
+                <CustomText
                   style={[
                     styles.dateText,
                     isSelected && styles.selectedDateText,
                   ]}>
                   {day.date}
-                </Text>
+                </CustomText>
               </TouchableOpacity>
             );
           })}
@@ -101,9 +101,9 @@ const DateDisplayComponent = ({onDateSelect}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.monthText}>
+      <CustomText style={[styles.monthText]}>
         {currentWeekStart.format('YYYY년 MMMM')}
-      </Text>
+      </CustomText>
       <ScrollView
         horizontal
         pagingEnabled
@@ -119,7 +119,6 @@ const DateDisplayComponent = ({onDateSelect}) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     marginTop: 23,
     justifyContent: 'center',
     alignItems: 'center',
@@ -134,10 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 10,
   },
-  selectedContainer: {
-    // borderBottomWidth: 2,
-    // borderBottomColor: 'black',
-  },
+  selectedContainer: {},
   monthText: {
     marginTop: 1,
     fontSize: 18,

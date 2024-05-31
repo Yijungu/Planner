@@ -9,7 +9,10 @@ const scheduleSchema = new mongoose.Schema({
   startTime: Date,
   endTime: Date,
   event: String,
-  color: String,
+  color: {
+    type: String,
+    default: "1",
+  },
 });
 
 module.exports = mongoose.model("Schedule", scheduleSchema);

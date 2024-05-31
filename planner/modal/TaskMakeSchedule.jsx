@@ -117,10 +117,10 @@ const TaskMakeSchedule = ({
                   {
                     top: topOffset,
                     height,
-                    backgroundColor: theme[item.color],
+                    backgroundColor: theme.complementary[item.color],
                   },
                 ]}>
-                <Text style={styles.eventText}>{item.event}</Text>
+                <Text style={styles.eventText}>{item.event.slice(0, 2)}</Text>
               </View>
             </>
           );

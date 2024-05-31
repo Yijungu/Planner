@@ -1,4 +1,3 @@
-// ScheduleModal.js
 import React, {useState, useRef, useEffect} from 'react';
 import {
   Modal,
@@ -18,7 +17,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import CalenderTaskComponent from './CalenderTaskModal';
 import 'moment/locale/ko'; // 한국어 로케일을 임포트
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {
+  GestureHandlerRootView,
+  LongPressGestureHandler,
+  State,
+} from 'react-native-gesture-handler';
 import {useSchedules} from '../../state/ScheduleContext';
 import 'moment-timezone';
 import 'moment/locale/ko';
@@ -147,12 +150,13 @@ const ScheduleModal = ({
   };
 
   // 길게 누르기 이벤트 핸들러
-  const handleLongPress = hour => e => {
+  const handleLongPress = event => {
     // 현재 ScrollView의 스크롤 위치를 가져옵니다.
-    setStart(hour * hourHeight + 30);
-    // start = hour * hourHeight + scrollOffset - 30;
-    setDragStart(start);
-    setDragEnd(start);
+    const time =
+      Math.round((event.nativeEvent.pageY + scrollOffset - 109) / 15) * 15;
+    setStart(time);
+    setDragStart(time);
+    setDragEnd(time);
     setIsDragging(true);
     scrollViewRef.current.setNativeProps({scrollEnabled: false});
   };
@@ -163,16 +167,6 @@ const ScheduleModal = ({
       // scrollViewRef.current.setNativeProps({scrollEnabled: true});
       const startY = e.nativeEvent.pageY;
       setDragEnd(startY - 110 + scrollOffset);
-    }
-  };
-  const triggerScrollUpdate = () => {
-    if (scrollViewRef.current) {
-      const currentOffset = scrollOffset;
-      // 스크롤을 현재 위치에서 조금 위로 올렸다가 다시 원래 위치로 복귀
-      scrollViewRef.current.scrollTo({y: currentOffset - 1, animated: false});
-      setTimeout(() => {
-        scrollViewRef.current.scrollTo({y: currentOffset, animated: false});
-      }, 10); // 10밀리초 후에 원래 위치로 복귀
     }
   };
 
@@ -344,7 +338,7 @@ const ScheduleModal = ({
   };
   const HourRow = React.memo(({hour, onLongPress}) => {
     return (
-      <TouchableOpacity onLongPress={onLongPress(hour)}>
+      <TouchableOpacity onLongPress={onLongPress}>
         <View style={styles.hourRow}>
           <Text style={styles.hourText}>{`${hour}`}</Text>
           <View style={styles.line} />
@@ -360,7 +354,7 @@ const ScheduleModal = ({
   };
 
   const renderSelectionArea = () => {
-    if (!isDragging || dragStart === null || dragEnd === null) {
+    if (!isDragging || isNaN(dragStart) || isNaN(dragEnd)) {
       return null;
     }
     const height = Math.floor(Math.abs(dragEnd - dragStart) / 15) * 15;

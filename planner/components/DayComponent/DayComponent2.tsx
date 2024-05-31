@@ -87,14 +87,16 @@ const DayComponent = ({
             key={event.startTime + event.id + index}
             style={styles.eventItemSchedule}>
             {/* 이벤트 제목의 처음 세 글자와 시간을 결합하여 표시 */}
-            <Text style={styles.eventText}>
-              {formatEventTime(event.startTime)} {event.event.slice(0, 3)}
-            </Text>
-            <View
-              style={[
-                styles.marker,
-                {backgroundColor: theme.complementary[event.color]},
-              ]}></View>
+            <View>
+              <Text style={styles.eventText}>
+                {formatEventTime(event.startTime)} {event.event.slice(0, 3)}
+              </Text>
+              <View
+                style={[
+                  styles.marker,
+                  {backgroundColor: theme.complementary[event.color]},
+                ]}></View>
+            </View>
           </View>
         );
       })}
@@ -118,22 +120,22 @@ const styles = StyleSheet.create({
   },
   eventItemSchedule: {
     alignItems: 'center',
-    textAlign: 'center',
-    justifyContent: 'center',
+    // textAlign: 'center',
+    // justifyContent: 'center',
     marginVertical: 4,
     // paddingVertical: 1,
   },
   marker: {
-    position: 'absolute',
-    left: 0,
-    top: 10,
+    // position: 'absolute',
+    // left: 0,
+    // top: 10,
     width: 12,
     height: 4,
     borderRadius: 2,
   },
   eventText: {
     fontSize: 7.5,
-    textAlign: 'center',
+    // textAlign: 'center',
   },
   eventMarker: {
     width: 6,
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   },
   todayContainer: {
     width: screenWidth / 7 - 0.000001,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     paddingVertical: 5,
     // margin: 5,
     minHeight: 70,
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
   },
   dayContainer: {
     width: screenWidth / 7 - 0.000001,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     paddingVertical: 5,
     // margin: 5,
     minHeight: 70,

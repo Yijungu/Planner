@@ -2898,6 +2898,13 @@
   "resolved" "https://registry.npmjs.org/async-limiter/-/async-limiter-1.0.1.tgz"
   "version" "1.0.1"
 
+"async@^2.0.0":
+  "integrity" "sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA=="
+  "resolved" "https://registry.npmjs.org/async/-/async-2.6.4.tgz"
+  "version" "2.6.4"
+  dependencies:
+    "lodash" "^4.17.14"
+
 "asynciterator.prototype@^1.0.0":
   "integrity" "sha512-wwHYEIS0Q80f5mosx3L/dfG5t5rjEa9Ft51GTaNt862EnpyGHpgz2RkZvLPp1oF5TnAiTohkEKVEu8pQPJI7Vg=="
   "resolved" "https://registry.npmjs.org/asynciterator.prototype/-/asynciterator.prototype-1.0.0.tgz"
@@ -4320,6 +4327,11 @@
   "integrity" "sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ=="
   "resolved" "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz"
   "version" "5.0.1"
+
+"eventemitter3@^1.2.0":
+  "integrity" "sha512-DOFqA1MF46fmZl2xtzXR3MPCRsXqgoFqdXcrCVYM3JNnfUeHTm/fh/v/iU7gBFpwkuBmoJPAm5GuhdDfSEJMJA=="
+  "resolved" "https://registry.npmjs.org/eventemitter3/-/eventemitter3-1.2.0.tgz"
+  "version" "1.2.0"
 
 "exec-async@^2.2.0":
   "integrity" "sha512-87OpwcEiMia/DeiKFzaQNBNFeN3XkkpYIh9FyOqq5mS2oKv3CBE67PXoEKcr6nodWdXNogTiQ0jE2NGuoffXPw=="
@@ -6150,7 +6162,7 @@
   "resolved" "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
   "version" "4.1.1"
 
-"lodash@^4.17.13", "lodash@^4.17.15", "lodash@^4.17.21", "lodash@^4.17.4":
+"lodash@^4.13.1", "lodash@^4.17.13", "lodash@^4.17.14", "lodash@^4.17.15", "lodash@^4.17.21", "lodash@^4.17.4":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -7396,6 +7408,15 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   "version" "18.2.0"
 
+"react-native-audio-toolkit@^1.0.6":
+  "integrity" "sha512-3JUkkwLLFvyzUNRRLqncwF/wFLwvvtxdw1qPSHiQL0SS8nk7RWOErRDsoMD27Aid8rs0dAQ+SDh5et7AmS6f8w=="
+  "resolved" "https://registry.npmjs.org/react-native-audio-toolkit/-/react-native-audio-toolkit-1.0.6.tgz"
+  "version" "1.0.6"
+  dependencies:
+    "async" "^2.0.0"
+    "eventemitter3" "^1.2.0"
+    "lodash" "^4.13.1"
+
 "react-native-calendars@^1.1304.1":
   "integrity" "sha512-D1aU5lLhi7KCCCeHhKOkcC41K8s3paiiIfMaOQx6NezCbgKHelqT01WPpAZLh3Cm0QTC5EZo0oDPD0mCdKrDgQ=="
   "resolved" "https://registry.npmjs.org/react-native-calendars/-/react-native-calendars-1.1304.1.tgz"
@@ -7486,7 +7507,12 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@> 0.50.0", "react-native@>= 0.30.0", "react-native@>= 0.64.3", "react-native@>=0.23.1", "react-native@>=0.64.0", "react-native@0.73.4":
+"react-native-voice@^0.3.0":
+  "integrity" "sha512-puSrXCNn1MM03UZkY8q+GW931OqBCEBCiupNK4vD8i49esGqRDDmzv8sRYyEgXj5ScVDKe6lnlKCmJSn5Wo2UA=="
+  "resolved" "https://registry.npmjs.org/react-native-voice/-/react-native-voice-0.3.0.tgz"
+  "version" "0.3.0"
+
+"react-native@*", "react-native@^0.0.0-0 || >=0.60 <1.0", "react-native@> 0.50.0", "react-native@>= 0.30.0", "react-native@>= 0.64.3", "react-native@>=0.23.1", "react-native@>=0.40.0", "react-native@>=0.64.0", "react-native@0.73.4":
   "integrity" "sha512-VtS+Yr6OOTIuJGDECIYWzNU8QpJjASQYvMtfa/Hvm/2/h5GdB6W9H9TOmh13x07Lj4AOhNMx3XSsz6TdrO4jIg=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.73.4.tgz"
   "version" "0.73.4"

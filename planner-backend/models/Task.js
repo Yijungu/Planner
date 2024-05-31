@@ -7,9 +7,11 @@ const taskSchema = new mongoose.Schema({
     required: true,
   },
   title: String,
-  description: String,
   dueDate: Date,
-  color: String,
+  color: {
+    type: String,
+    default: "1",
+  },
   deleteOption: {
     type: String,
     enum: ["immediate", "delay", "keep"],

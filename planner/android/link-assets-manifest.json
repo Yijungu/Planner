@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/NanumGothicBold.ttf",
+      "sha1": "c036b6e55f5b44a924dc28229afbbad8b0eca908"
+    },
+    {
+      "path": "assets/fonts/NanumGothicExtraBold.ttf",
+      "sha1": "d904153dbcf659ab2a704f7aba5909114dee57ae"
+    },
+    {
+      "path": "assets/fonts/NanumGothicRegular.ttf",
+      "sha1": "16b60dd27e95e2898aee302aeb0ee8546a24b4ac"
+    }
+  ]
+}
