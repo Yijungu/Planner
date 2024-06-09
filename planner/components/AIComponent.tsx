@@ -14,6 +14,7 @@ import api from '../utils/api';
 const AIComponent = () => {
   const [log, setLog] = useState([]);
   const [isRecording, setIsRecording] = useState(false);
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     const requestPermission = async () => {
@@ -25,6 +26,7 @@ const AIComponent = () => {
     };
     requestPermission();
 
+    Voice.onSpeechResults = onSpeechResults;
     Voice.onSpeechEnd = onSpeechEnd;
     Voice.onSpeechError = onSpeechError;
 
@@ -33,34 +35,46 @@ const AIComponent = () => {
     };
   }, []);
 
-  const onSpeechEnd = async () => {
-    try {
-      const results = await Voice.stop();
-      const text = results.value[0];
-      setLog(prevLog => [...prevLog, `User: ${text}`]);
-      console.log('text', text);
-      const response = await api.post('/ai/command', {command: text});
-      if (response.status === 200) {
-        const data = response.data;
-        if (data.additionalResponse) {
-          const additionalResponse = await api.post('/ai/additional-command', {
-            command: data.agentCommand,
-          });
-          if (additionalResponse.status === 200) {
-            const additionalData = additionalResponse.data;
-            playAudioFromBase64(additionalData.audioBase64);
-          } else {
-            console.error('Failed to get additional response');
-          }
-        } else {
-          playAudioFromBase64(data.audioBase64);
-        }
-      }
-    } catch (error) {
-      setLog(prevLog => [...prevLog, `Error: ${error.message}`]);
-    }
+  const onSpeechResults = event => {
+    setResults(event.value);
+    console.log(event.value);
+  };
 
+  const onSpeechEnd = async () => {
     setIsRecording(false);
+    console.log(results.length);
+    if (results.length > 0) {
+      const text = results[0];
+      console.log('text', text);
+      setLog(prevLog => [...prevLog, `User: ${text}`]);
+
+      try {
+        const response = await api.post('/ai/command', {command: text});
+        if (response.status === 200) {
+          const data = response.data;
+          console.log('response.data', response.data);
+          if (data.additionalResponse) {
+            console.log('data.agentCommand : ', data.agentCommand);
+            const additionalResponse = await api.post(
+              '/ai/additional-command',
+              {
+                command: data.agentCommand,
+              },
+            );
+            if (additionalResponse.status === 200) {
+              const additionalData = additionalResponse.data;
+              playAudioFromBase64(additionalData.audioBase64);
+            } else {
+              console.error('Failed to get additional response');
+            }
+          } else {
+            playAudioFromBase64(data.audioBase64);
+          }
+        }
+      } catch (error) {
+        console.log('Error', [`Error: ${error.message}`]);
+      }
+    }
   };
 
   const onSpeechError = error => {
@@ -83,6 +97,7 @@ const AIComponent = () => {
 
   const startRecording = () => {
     setIsRecording(true);
+    setResults([]);
     Voice.start('ko-KR').catch(error => {
       setLog(prevLog => [...prevLog, `Error: ${error.message}`]);
       setIsRecording(false);

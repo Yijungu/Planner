@@ -19,10 +19,10 @@ async function callOpenAI(prompt, model) {
     ];
 
     const response = await openai.chat.completions.create({
-      model:
-        model === "gpt-4-desk-model"
-          ? "ft:gpt-3.5-turbo-0125:wellcomlab::9UCQgz0f"
-          : "ft:gpt-3.5-turbo-0125:wellcomlab::9UVXuSD0",
+      model: "gpt-4-o",
+      // model === "gpt-4-desk-model"
+      //   ? "ft:gpt-3.5-turbo-0125:wellcomlab::9UCQgz0f"
+      //   : "ft:gpt-3.5-turbo-0125:wellcomlab::9UVXuSD0",
       messages,
       temperature: 1,
       max_tokens: 256,

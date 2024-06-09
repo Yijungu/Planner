@@ -45,7 +45,7 @@ async function processCommand(req, res) {
 
           const buffer = Buffer.from(await mp3.arrayBuffer());
           const audioBase64 = buffer.toString("base64");
-
+          console.log("parsedResponse1 : ", parsedResponse);
           // JSON 응답으로 음성 데이터와 추가 데이터 전송
           return res.status(200).json({
             response: parsedResponse,
@@ -57,7 +57,7 @@ async function processCommand(req, res) {
           const dummyFilePath = path.resolve("/path/to/dummy/response.mp3"); // 더미 경로
           const dummyFileBuffer = fs.readFileSync(dummyFilePath);
           const dummyAudioBase64 = dummyFileBuffer.toString("base64");
-
+          console.log("parsedResponse2 : ", parsedResponse);
           return res.status(200).json({
             response: parsedResponse,
             additionalResponse: true,
@@ -66,6 +66,7 @@ async function processCommand(req, res) {
         }
       } else {
         // 텍스트 응답을 음성으로 변환
+        console.log("parsedResponse3 : ", parsedResponse);
         const mp3 = await openai.audio.speech.create({
           model: "tts-1",
           voice: "alloy",
@@ -94,10 +95,10 @@ async function processAdditionalCommand(req, res) {
   try {
     const { command } = req.body;
     const userId = req.user ? req.user.userId : "test_user_id"; // 사용자 인증 없을 때 기본값
-
+    console.log("command", command);
     // 두 번째 AI 호출 (데이터베이스 AI 모델 사용)
     let dbAiResponse = await callOpenAI(command, "gpt-4-database-model");
-
+    console.log("dbAiResponse", dbAiResponse);
     // AI로부터 생성된 쿼리 실행
     const query = dbAiResponse.replace("<USER_ID>", userId);
     const result = await executeQuery(query);
@@ -130,6 +131,7 @@ async function processAdditionalCommand(req, res) {
       audioBase64: audioBase64,
     });
   } catch (error) {
+    console.log("error");
     res.status(500).send(error.message);
   }
 }
