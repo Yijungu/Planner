@@ -3,8 +3,8 @@
 **유연한 스케줄 관리 앱**
 
 <div style="display: flex;">
-<img width="266" alt="image" src="https://github.com/user-attachments/assets/d6f0c93d-60d4-47d5-9f78-6fb63b963984">
-<img width="310" alt="image" src="https://github.com/user-attachments/assets/1e73a93c-c09a-4bc5-ba11-c3b2cd282b14">
+<img width="250" alt="image" src="https://github.com/user-attachments/assets/d6f0c93d-60d4-47d5-9f78-6fb63b963984">
+<img width="250" alt="image" src="https://github.com/user-attachments/assets/1e73a93c-c09a-4bc5-ba11-c3b2cd282b14">
 </div>
 
 ## 개요
