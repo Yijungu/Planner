@@ -2,10 +2,11 @@
 
 **유연한 스케줄 관리 앱**
 
-<div style="display: flex;">
-<img width="250" alt="image" src="https://github.com/user-attachments/assets/d6f0c93d-60d4-47d5-9f78-6fb63b963984">
-<img width="250" alt="image" src="https://github.com/user-attachments/assets/1e73a93c-c09a-4bc5-ba11-c3b2cd282b14">
+<div style="display: flex; gap: 20px;">
+    <img width="150" alt="image" src="https://github.com/user-attachments/assets/d6f0c93d-60d4-47d5-9f78-6fb63b963984">
+    <img width="150" alt="image" src="https://github.com/user-attachments/assets/1e73a93c-c09a-4bc5-ba11-c3b2cd282b14">
 </div>
+
 
 ## 개요
 **Planner**는 기존의 스케줄러 앱과는 차별화된, 사용자의 요구에 맞춘 스케줄 관리 기능을 제공하는 모바일 애플리케이션입니다. 이 앱은 마감일이 있는 업무와 이벤트성 업무를 유동적으로 관리할 수 있으며, 음성 명령을 통해 업무를 쉽게 등록할 수 있는 기능을 포함하고 있습니다.
